@@ -13,6 +13,11 @@
         },
         "runtime": {
           "CryptoCurrencyTool.dll": {}
+        },
+        "resources": {
+          "uk/CryptoCurrencyTool.resources.dll": {
+            "locale": "uk"
+          }
         }
       },
       "FontAwesome.Sharp/6.3.0": {

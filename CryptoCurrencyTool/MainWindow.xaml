@@ -78,13 +78,16 @@
 
                         </StackPanel>
 
-                        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
+                        <ContentControl Margin="5" Grid.Row="1" Content="{Binding CurrentViewModel}">
                             <ContentControl.Resources>
                                 <DataTemplate DataType="{x:Type vm:HomeViewModel}">
                                     <v:HomeView/>
                                 </DataTemplate>
                                 <DataTemplate DataType="{x:Type vm:ConvertorViewModel}">
                                     <v:ConvertorView/>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+                                    <v:SettingsView/>
                                 </DataTemplate>
                                 
                             </ContentControl.Resources>

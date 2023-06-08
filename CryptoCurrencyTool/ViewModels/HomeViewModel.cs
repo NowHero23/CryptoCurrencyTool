@@ -1,13 +1,75 @@
-﻿using System;
+﻿using CryptoCurrencyTool.Commands;
+using CryptoCurrencyTool.Models;
+using CryptoCurrencyTool.Services;
+using CryptoCurrencyTool.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CryptoCurrencyTool.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
+        public static ICommand SearchCommand { get; private set; }
 
+        public List<CryptoCurrency> _cryptoCurrencies;
+        public List<CryptoCurrency> CryptoCurrencies
+        {
+            get => _cryptoCurrencies;
+            set
+            {
+                _cryptoCurrencies = value;
+                OnPropertyChanged("CryptoCurrencies");
+            }
+        }
+        public static CurrencyStore CurrencyStore { get; private set; }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged("SearchText");
+            }
+        }
+
+        
+        public HomeViewModel(CurrencyStore currencyStore)
+        {
+            if (CurrencyStore == null) CurrencyStore = currencyStore;
+            if (CryptoCurrencies == null) CryptoCurrencies = CurrencyStore.CryptoCurrencies;
+
+            SearchCommand = new RelayCommand(() => 
+            {
+                if (string.IsNullOrEmpty(SearchText))
+                    CryptoCurrencies = CurrencyStore.CryptoCurrencies;
+                else
+                {
+                    CryptoCurrencies = CurrencyStore.CryptoCurrencies.Where(
+                    c => c.Id.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
+                    || c.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
+                    ).OrderBy(c => c.Rank).ToList<CryptoCurrency>();
+
+                }
+            });
+
+            CurrencyStore.CryptoCurrencyChanged += CryptoCurrenciesChangedEventHandler;
+        }
+
+        public override void Dispose()
+        {
+            CurrencyStore.CryptoCurrencyChanged -= CryptoCurrenciesChangedEventHandler;
+            base.Dispose();
+        }
+
+        private void CryptoCurrenciesChangedEventHandler()
+        {
+            OnPropertyChanged("CryptoCurrencies");
+        }
     }
 }

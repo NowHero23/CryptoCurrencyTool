@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\App.xaml
-9-1309717904
+102080060639
 
-23-488620858
+341304911522
 209214033226
-Components\NavigationBar.xaml;MainWindow.xaml;Resources\Styles\ButtonStyles.xaml;Resources\Styles\ChartStyles.xaml;Resources\Styles\DataGridStyles.xaml;Resources\Styles\Fonts.xaml;Resources\Styles\UIColors.xaml;Views\ConvertorView.xaml;Views\HomeView.xaml;
+Components\NavigationBar.xaml;MainWindow.xaml;Resources\Styles\ButtonStyles.xaml;Resources\Styles\ChartStyles.xaml;Resources\Styles\DataGridStyles.xaml;Resources\Styles\Fonts.xaml;Resources\Styles\UIColors.xaml;Views\ConvertorView.xaml;Views\HomeView.xaml;Views\SettingsView.xaml;
 
-True
+False
 

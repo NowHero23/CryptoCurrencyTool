@@ -35,3 +35,11 @@ C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\obj\Debu
 C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\obj\Debug\net7.0-windows\ref\CryptoCurrencyTool.dll
 C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\obj\Debug\net7.0-windows\Views\ConvertorView.g.cs
 C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\obj\Debug\net7.0-windows\Views\ConvertorView.baml
+C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\obj\Debug\net7.0-windows\Views\SettingsView.g.cs
+C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\bin\Debug\net7.0-windows\CryptoCurrencyTool.dll.config
+C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\bin\Debug\net7.0-windows\uk\CryptoCurrencyTool.resources.dll
+C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\obj\Debug\net7.0-windows\Views\SettingsView.baml
+C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\obj\Debug\net7.0-windows\CryptoCurrencyTool.Resources.Languages.Lang.resources
+C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\obj\Debug\net7.0-windows\CryptoCurrencyTool.Resources.Languages.Lang.uk.resources
+C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\obj\Debug\net7.0-windows\CryptoCurrencyTool.csproj.GenerateResource.cache
+C:\Users\Levchenko O\source\repos\CryptoCurrencyTool\CryptoCurrencyTool\obj\Debug\net7.0-windows\uk\CryptoCurrencyTool.resources.dll

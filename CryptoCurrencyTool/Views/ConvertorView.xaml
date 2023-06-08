@@ -5,13 +5,57 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CryptoCurrencyTool.Views"
              xmlns:vm="clr-namespace:CryptoCurrencyTool.ViewModels"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:lang="clr-namespace:CryptoCurrencyTool.Resources.Languages"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="700" d:DesignWidth="1050">
 
     <UserControl.DataContext>
         <vm:ConvertorViewModel/>
     </UserControl.DataContext>
-    <Grid Background="Blue">
-        <TextBlock Text="{Binding CurrentSTR}"></TextBlock>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border  
+            Grid.Row="1"
+            Background="#200F53"
+            CornerRadius="10" 
+            Padding="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <StackPanel Orientation="Vertical" Margin="10" VerticalAlignment="Center" MinWidth="100">
+                    <TextBlock Text="From" Foreground="white" FontSize="20"/>
+                    <ComboBox
+                        ItemsSource="{Binding CryptoCurrencies}"
+                        SelectedItem="{Binding FromCurrency}"
+                        />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{x:Static lang:Lang.amount}" Foreground="white" FontSize="20"/>
+                        <TextBox Text="{Binding Amount}" FontSize="20" MinWidth="100"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding FromCurrency.PriceUsd}" Foreground="white" FontSize="20"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Margin="10" VerticalAlignment="Top" MinWidth="100">
+                    <TextBlock Text="To" Foreground="white" FontSize="20"/>
+                    <ComboBox
+                        ItemsSource="{Binding CryptoCurrencies}"
+                        SelectedItem="{Binding ToCurrency}"
+                        />
+
+                    <TextBlock Text="{Binding ToCurrency.PriceUsd}" Foreground="white" FontSize="20"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Margin="10" VerticalAlignment="Top" MinWidth="100">
+                    <TextBlock Text="{x:Static lang:Lang.result}" Foreground="white" FontSize="20"/>
+
+                    <TextBox IsReadOnly="True" Text="{Binding Result}"  FontSize="20"/>
+
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

@@ -17,10 +17,12 @@ namespace CryptoCurrencyTool.ViewModels
 
         public NavigationBarViewModel(
             NavigationService<HomeViewModel> homeNavigationService,
-            NavigationService<ConvertorViewModel> convertorNavigationService) {
+            NavigationService<ConvertorViewModel> convertorNavigationService,
+            NavigationService<SettingsViewModel> settingsNavigationService) {
 
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
             NavigateConvertorCommand = new NavigateCommand<ConvertorViewModel>(convertorNavigationService);
+            NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(settingsNavigationService);
         }
 
 

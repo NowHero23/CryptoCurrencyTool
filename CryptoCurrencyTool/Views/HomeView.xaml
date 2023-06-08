@@ -5,13 +5,128 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CryptoCurrencyTool.Views"
              xmlns:vm="clr-namespace:CryptoCurrencyTool.ViewModels"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:lang="clr-namespace:CryptoCurrencyTool.Resources.Languages"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    
+             d:DesignHeight="700" d:DesignWidth="1050">
+
+    <!--
     <UserControl.DataContext>
         <vm:HomeViewModel/>
     </UserControl.DataContext>
-    <Grid Background="Red">
-            
+    -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Top"
+                        Grid.Column="0">
+                <fa:IconImage Icon="Search" Height="20" Width="20" Foreground="{StaticResource plainTextColor3}"/>
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                         FontSize="13"
+                         Height="24"
+                         Width="300"
+                         Background="Transparent"
+                         FontWeight="Medium"
+                         FontFamily="Montserrat"
+                         Foreground="{StaticResource plainTextColor3}"
+                         CaretBrush="{StaticResource plainTextColor3}"
+                         BorderBrush="{StaticResource plainTextColor3}"
+                         BorderThickness="0,0,0,1"
+                         VerticalAlignment="Center"
+                         Margin="5,5,0,0"></TextBox>
+            </StackPanel>
+            <Button Grid.Column="1"
+                    Command="{Binding SearchCommand}"
+                                                      
+                    Content="{x:Static lang:Lang.search}"                            
+                    FontSize="12"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    BorderThickness="0"
+                    Foreground="White"
+                    VerticalAlignment="Top">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#773DFF"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Height="30"
+                                            CornerRadius="15"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#836EFB"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+
+        <Border  
+            Grid.Row="1"
+            Background="#200F53"
+            CornerRadius="10" 
+            Padding="10">
+
+            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+                      Background="#200F53"
+                      Foreground="White"
+                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                      CellStyle="{DynamicResource DataGridCellStyle1}" 
+                      Style="{DynamicResource DataGridStyle1}" 
+                      IsReadOnly="True" 
+                      AutoGenerateColumns="False" 
+                      ItemsSource="{Binding CryptoCurrencies}">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="{x:Static lang:Lang.rank}" Binding="{Binding Rank}"/>
+                    <DataGridTextColumn Header="{x:Static lang:Lang.id}" Binding="{Binding Id}" />
+                    <DataGridTextColumn Header="{x:Static lang:Lang.symbol}" Binding="{Binding Symbol}" />
+                    <DataGridTextColumn Header="{x:Static lang:Lang.name}" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="{x:Static lang:Lang.price_usd}" Binding="{Binding PriceUsd}" />
+                    <DataGridTemplateColumn Header="{x:Static lang:Lang.controls}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                    <Button Command="{Binding DataContext.OpenUrlCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            CommandParameter="{Binding Explorer}"
+                                            Style="{DynamicResource CustomButtonStyle}" 
+                                            Background="#FF2D39FB">
+
+                                        <fa:IconImage Icon="Globe" Height="15" Foreground="White"/>
+
+                                    </Button>
+
+                                    <Button Content="{x:Static lang:Lang.history}" Command="{Binding DataContext.NavigateHistoryCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding Id}"/>
+
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Border>
     </Grid>
 </UserControl>
