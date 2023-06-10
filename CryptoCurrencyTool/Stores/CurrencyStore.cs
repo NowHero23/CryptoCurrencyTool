@@ -31,8 +31,13 @@ namespace CryptoCurrencyTool.Stores
 
         public CurrencyStore()
         {
-            CryptoCurrencies = ApiService.GetAssetsData().Result;
+            CryptoCurrencyTable tmp;
             
+            Task<CryptoCurrencyTable> temp = ApiService.GetAssetsDataAsync();
+
+            tmp = temp.GetAwaiter().GetResult();
+
+            CryptoCurrencies = tmp.Data;
         }
     }
 }
