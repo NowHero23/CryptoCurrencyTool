@@ -13,6 +13,9 @@
     <Compile Update="Views\ConvertorView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\HistoryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\HomeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -43,6 +46,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ConvertorView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\HistoryView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\HomeView.xaml">

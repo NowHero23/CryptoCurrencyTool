@@ -9,6 +9,7 @@ namespace CryptoCurrencyTool.Stores
 {
     public class NavigationStore
     {
+        private static NavigationStore _instance;
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
         {
@@ -22,10 +23,12 @@ namespace CryptoCurrencyTool.Stores
         }
 
         public event Action CurrentViewModelChanged;
-
         private void OnCurrentViewModelChanged()
         {
             CurrentViewModelChanged?.Invoke();
         }
+
+        public static NavigationStore GetInstance() => _instance ?? (_instance = new NavigationStore());
+        private NavigationStore(){}
     }
 }

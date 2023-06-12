@@ -101,6 +101,7 @@
                     <DataGridTextColumn Header="{x:Static lang:Lang.symbol}" Binding="{Binding Symbol}" />
                     <DataGridTextColumn Header="{x:Static lang:Lang.name}" Binding="{Binding Name}" />
                     <DataGridTextColumn Header="{x:Static lang:Lang.price_usd}" Binding="{Binding PriceUsd}" />
+                    <DataGridTextColumn Header="Explorer" Binding="{Binding Explorer}" />
                     <DataGridTemplateColumn Header="{x:Static lang:Lang.controls}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

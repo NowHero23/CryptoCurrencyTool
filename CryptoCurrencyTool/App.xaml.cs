@@ -20,11 +20,13 @@ namespace CryptoCurrencyTool
     {
         private readonly NavigationStore _navigationStore;
         private readonly CurrencyStore _currencyStore;
+        private readonly HistoryStore _historyStore;
 
         public App()
         {
-            _navigationStore = new NavigationStore();
-            _currencyStore = new CurrencyStore();
+            _navigationStore = NavigationStore.GetInstance();
+            _currencyStore = CurrencyStore.GetInstance();
+            _historyStore = HistoryStore.GetInstance();
 
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;  
         }
@@ -44,6 +46,8 @@ namespace CryptoCurrencyTool
             MainWindow.Show();
 
             base.OnStartup(e);
+
+            //new HistoryViewModel(_historyStore);
         }
 
         private NavigationBarViewModel CreateNavigationBarViewModel()
@@ -59,7 +63,7 @@ namespace CryptoCurrencyTool
         {
             return new NavigationService<HomeViewModel>(
                 _navigationStore,
-                () => new HomeViewModel(_currencyStore)
+                () => new HomeViewModel(_currencyStore, CreateHistoryNavigationService())
                 );
         }
         private NavigationService<ConvertorViewModel> CreateConvertorNavigationService()
@@ -75,6 +79,13 @@ namespace CryptoCurrencyTool
                 _navigationStore,
                 () => new SettingsViewModel()
                 );
+        }
+        public ParameterNavigationService<string, HistoryViewModel> CreateHistoryNavigationService()
+        {
+            return new ParameterNavigationService<string, HistoryViewModel>(
+                _navigationStore,
+                parameter => new HistoryViewModel(_historyStore, parameter)
+            );
         }
 
 

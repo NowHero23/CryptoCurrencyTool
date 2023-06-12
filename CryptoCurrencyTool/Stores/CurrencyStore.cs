@@ -11,6 +11,7 @@ namespace CryptoCurrencyTool.Stores
 {
     public class CurrencyStore
     {
+        private static CurrencyStore _instance;
         private static List<CryptoCurrency> _cryptocurrencies = new List<CryptoCurrency>();
         public List<CryptoCurrency> CryptoCurrencies
         {
@@ -23,21 +24,20 @@ namespace CryptoCurrencyTool.Stores
         }
 
         public event Action CryptoCurrencyChanged;
-
         private void OnCryptoCurrencyChanged()
         {
             CryptoCurrencyChanged?.Invoke();
         }
 
-        public CurrencyStore()
+        private CurrencyStore()
         {
-            CryptoCurrencyTable tmp;
-            
-            Task<CryptoCurrencyTable> temp = ApiService.GetAssetsDataAsync();
+            Task<List<CryptoCurrency>> temp = ApiService.GetAssetsDataAsync();
 
-            tmp = temp.GetAwaiter().GetResult();
+            List<CryptoCurrency> tmp = temp.GetAwaiter().GetResult();
 
-            CryptoCurrencies = tmp.Data;
+            CryptoCurrencies = tmp;
         }
+        public static CurrencyStore GetInstance() => _instance ?? (_instance = new CurrencyStore());
+        
     }
 }

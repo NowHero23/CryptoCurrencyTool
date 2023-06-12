@@ -90,6 +90,9 @@
                                     <v:SettingsView/>
                                 </DataTemplate>
                                 
+                                <DataTemplate DataType="{x:Type vm:HistoryViewModel}">
+                                    <v:HistoryView/>
+                                </DataTemplate>
                             </ContentControl.Resources>
 
                         </ContentControl>

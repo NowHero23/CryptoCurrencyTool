@@ -1,8 +1,10 @@
 ﻿using CryptoCurrencyTool.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,32 +14,19 @@ namespace CryptoCurrencyTool.Services
 {
     public class ApiService
     {
-        public static async Task<CryptoCurrencyTable> GetAssetsDataAsync(string id = "")
+        public static async Task<List<CryptoCurrency>> GetAssetsDataAsync(string id = "")
         {
-            CryptoCurrencyTable tmp = new CryptoCurrencyTable();
+            List<CryptoCurrency>? result = null;
             
-            string json = await ConnectingService.GetDataAsync("assets/" + id);
+            var content = await ConnectingService.GetDataAsync("assets/" + id); 
+            if (content == null) return null;
 
-            if (json == null) return tmp;
+            var json = JObject.Parse(content);
+            var data = id == "" ? json["data"].Value<JArray>() : new JArray(json["data"]);
+
+            result = data.ToObject<List<CryptoCurrency>>();
             
-            try
-            {
-                tmp = JsonConvert.DeserializeObject<CryptoCurrencyTable>(json);
-            }
-            catch (Exception)
-            {
-                var obj = new
-                {
-                    Data = new CryptoCurrency(),
-                    Timestamp = default(long)
-                };
-
-                obj = JsonConvert.DeserializeAnonymousType(json, obj);
-                tmp.Data.Add(obj.Data);
-                tmp.timestamp = obj.Timestamp;
-            }
-
-            return tmp;
+            return result;
         }
 
         //api.coincap.io/v2/assets/bitcoin/history?interval=d1&start=1681084800000&end=1681257600000
@@ -55,16 +44,14 @@ namespace CryptoCurrencyTool.Services
             if (json == null) return history;
 
             history = JsonConvert.DeserializeObject<History>(json);
-            history.Currency = (await GetAssetsDataAsync(id)).Data[0];
+            history.Currency = (await GetAssetsDataAsync(id))[0];
 
             return history;
         }
 
         //api.coincap.io/v2/assets/bitcoin/markets?limit=5&offset=0
-        public static async Task<MarketTable> GetMarketDataAsync(string id, int limit = 0, int offset = 0)
+        public static async Task<List<Market>> GetMarketDataAsync(string id, int limit = 0, int offset = 0)
         {
-            MarketTable tmp = new MarketTable();
-
             var url = "assets/" + id + "/markets/";
             if (limit != 0 && offset != 0)
                 url += "?limit=" + limit;
@@ -73,55 +60,34 @@ namespace CryptoCurrencyTool.Services
             else if (offset != 0)
                 url += "?offset=" + offset;
 
-            var json = await ConnectingService.GetDataAsync(url);
-            if (json == null) return tmp;
 
-            try
-            {
-                tmp = JsonConvert.DeserializeObject<MarketTable>(json);
-            }
-            catch (Exception)
-            {
-                var obj = new
-                {
-                    Data = new Market(),
-                    Timestamp = default(long)
-                };
+            List<Market>? result = null;
+            
+            var content = await ConnectingService.GetDataAsync(url);
+            if (content == null) return null;
 
-                obj = JsonConvert.DeserializeAnonymousType(json, obj);
-                tmp.Data.Add(obj.Data);
-                tmp.timestamp = obj.Timestamp;
-            }
+            var json = JObject.Parse(content);
+            var data = id == "" ? json["data"].Value<JArray>() : new JArray(json["data"]);
 
-            return tmp;
+            result = data.ToObject<List<Market>>();
+            
+            return result;
         }
 
         //api.coincap.io/v2/rates/bitcoin
-        public static async Task<Rate> GetRateDataAsync(string id = "")
+        public static async Task<List<RateItem>> GetRateDataAsync(string id = "")
         {
-            Rate tmp = new Rate();
+            List<RateItem>? result = null;
 
-            var json = await ConnectingService.GetDataAsync("rates/" + id);
-            if (json == null) return tmp;
+            var content = await ConnectingService.GetDataAsync("rates/" + id);
+            if (content == null) return null;
 
-            try
-            {
-                tmp = JsonConvert.DeserializeObject<Rate>(json);
-            }
-            catch (Exception)
-            {
-                var obj = new
-                {
-                    Data = new RateItem(),
-                    Timestamp = default(long)
-                };
+            var json = JObject.Parse(content);
+            var data = id == "" ? json["data"].Value<JArray>() : new JArray(json["data"]);
 
-                obj = JsonConvert.DeserializeAnonymousType(json, obj);
-                tmp.Data.Add(obj.Data);
-                tmp.timestamp = obj.Timestamp;
-            }
+            result = data.ToObject<List<RateItem>>();
 
-            return tmp;
+            return result;
         }
     }
 }
